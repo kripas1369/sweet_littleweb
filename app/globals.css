@@ -3,6 +3,37 @@
 :root {
   --background: #ffffff;
   --foreground: #000000;
+
+  /* Light luxury theme — matches public site aesthetic */
+  --lsp-bg: #fafafa;
+  --lsp-surface: #ffffff;
+  --lsp-surface-2: #f5f5f7;
+  --lsp-border: rgba(0, 0, 0, 0.08);
+  --lsp-border-strong: rgba(0, 0, 0, 0.18);
+  --lsp-muted: #86868B;
+
+  /* Pink → Gold brand gradient (from public Hero) */
+  --lsp-accent-1: #F472B6;
+  --lsp-accent-2: #D4A017;
+
+  /* Backward-compat tokens (now point at the pink-gold accent) */
+  --lsp-gold: #D4A017;
+  --lsp-gold-soft: #E0B645;
+  --lsp-gold-deep: #A8800F;
+}
+
+@theme inline {
+  --font-display: var(--font-inter);
+  --font-sans: var(--font-inter);
+  --color-lsp-bg: var(--lsp-bg);
+  --color-lsp-surface: var(--lsp-surface);
+  --color-lsp-surface-2: var(--lsp-surface-2);
+  --color-lsp-border: var(--lsp-border);
+  --color-lsp-border-strong: var(--lsp-border-strong);
+  --color-lsp-gold: var(--lsp-gold);
+  --color-lsp-gold-soft: var(--lsp-gold-soft);
+  --color-lsp-gold-deep: var(--lsp-gold-deep);
+  --color-lsp-muted: var(--lsp-muted);
 }
 
 * {
@@ -18,7 +49,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
 }
 
@@ -47,3 +78,74 @@ body {
   animation: marquee 28s linear infinite;
 }
 
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.40); }
+  50% { box-shadow: 0 0 0 14px rgba(212, 160, 23, 0); }
+}
+
+@keyframes bokehFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  50% { transform: translate(20px, -30px) scale(1.15); opacity: 0.9; }
+}
+
+/* Display headings — public site style (Inter Black, tight tracking) */
+.font-display {
+  font-family: var(--font-inter), -apple-system, "SF Pro Display", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.font-display-italic {
+  font-family: var(--font-inter), -apple-system, "SF Pro Display", sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+
+.lsp-dark-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.lsp-dark-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.lsp-dark-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+.lsp-dark-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+/* Pink → Gold brand gradient (matches public Hero accent) */
+.gold-gradient {
+  background: linear-gradient(135deg, #F472B6 0%, #D4A017 100%);
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #F472B6 0%, #D4A017 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bokeh-dot {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.55) 0%, rgba(212, 160, 23, 0) 70%);
+  filter: blur(6px);
+  animation: bokehFloat 9s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.lsp-skeleton {
+  background: linear-gradient(90deg, #f0f0f3 0%, #e4e4e9 50%, #f0f0f3 100%);
+  background-size: 200px 100%;
+  animation: skeletonShimmer 1.4s ease-in-out infinite;
+}
+
+/* Apple-style soft card shadow */
+.lsp-card-shadow {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -12px rgba(0,0,0,0.10);
+}

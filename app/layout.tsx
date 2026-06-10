@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "./components/admin/Toast";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -21,8 +28,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
-      <body className="bg-white text-black overflow-x-hidden">{children}</body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${playfair.variable} antialiased`}
+    >
+      <body className="bg-white text-black overflow-x-hidden">
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
